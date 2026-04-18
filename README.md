@@ -7,6 +7,15 @@ A full-stack deployment-ready application for managing and resolving TeraBox sha
 
 > ⚠️ **Operator note:** This backend currently returns truthful failure responses. Real URL resolution requires a licensed or authorized integration. See [Backend Integration](#backend-integration) below.
 
+## 🚀 Live Production
+
+| | URL |
+|---|---|
+| **Frontend** | https://terabox-downloader-pied.vercel.app |
+| **Backend** | https://terabox-downloader-api-ik82.onrender.com |
+| **Health Check** | https://terabox-downloader-api-ik82.onrender.com/api/health |
+| **GitHub** | https://github.com/sirajudheen-asharaf/terabox-downloader |
+
 ---
 
 ## Architecture
