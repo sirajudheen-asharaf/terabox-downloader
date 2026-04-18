@@ -333,4 +333,4 @@ There is no fake-success path anywhere in this codebase:
 - The frontend API client (`src/app/services/api.ts`) throws on every failure path — network errors, HTTP errors, malformed JSON, `ok: false` responses, and missing `outputUrl` fields
 - The backend resolver service (`server/services/resolver.js`) returns explicit failure until a real integration is provided
 - Preview buttons in the results table are only shown when a real `outputUrl` is present
-- The backend health pill in the nav reflects actual `/api/health` reachability
+- The backend health pill in the nav reflects actual `/api/health` reachability"# terabox-downloader" 
