@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Production build output
+dist/
+
+# Environment files — never commit real secrets
+.env
+.env.local
+.env.production
+.env.production.local
+server/.env
+server/.env.local
+
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# Vite cache
+.vite/
