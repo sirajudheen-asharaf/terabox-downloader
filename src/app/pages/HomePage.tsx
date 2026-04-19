@@ -18,14 +18,12 @@ import { resolveTeraBoxUrl, ApiError } from '../services/api';
 // A backend-unavailable banner shown when the service is confirmed down.
 function BackendBanner() {
   return (
-    <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-4 flex items-start gap-3">
-      <WifiOff className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+    <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 flex items-start gap-3">
+      <WifiOff className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
       <div className="text-sm">
-        <p className="font-medium text-red-300">Resolution service is unavailable</p>
-        <p className="text-red-400/80 mt-0.5">
-          This frontend requires a connected{' '}
-          <code className="px-1 rounded bg-red-500/20 font-mono text-xs">/api/resolve</code>{' '}
-          backend. No real resolution occurs in the client.
+        <p className="font-medium text-red-800">Resolution service is unavailable</p>
+        <p className="text-red-700/80 mt-0.5">
+          This app sends links to a backend service. If it's unavailable, you'll see an error.
         </p>
       </div>
     </div>
@@ -219,7 +217,7 @@ export function HomePage() {
 
   return (
     <div className="space-y-6">
-      <Toaster theme="dark" richColors />
+      <Toaster theme="light" richColors />
 
       {/* Backend unavailable banner */}
       {backendDown && <BackendBanner />}

@@ -111,6 +111,7 @@ Backend → `http://localhost:3001`
 | `PORT` | `3001` | Port the server listens on |
 | `NODE_ENV` | `development` | Environment mode. Set to `production` in deployments. |
 | `ALLOWED_ORIGINS` | `http://localhost:5173` | Comma-separated list of CORS-allowed frontend origins |
+| `RESOLVER_TIMEOUT_MS` | `15000` | Network timeout (ms) for fetching the TeraBox share page |
 
 ---
 
@@ -149,12 +150,17 @@ Content-Type: application/json
 {
   "ok": true,
   "title": "Video title",
-  "quality": "720p",
-  "duration": "03:24",
-  "outputUrl": "https://cdn.example.com/video.mp4",
+  "quality": "",
+  "duration": "",
+  "outputUrl": "",
   "thumbnail": "https://cdn.example.com/thumb.jpg"
 }
 ```
+
+> **Note:** `quality`, `duration`, and `outputUrl` are intentionally empty strings.
+> TeraBox does not expose these values in publicly accessible HTML responses.
+> A direct download URL requires authentication and cannot be lawfully obtained
+> from the public share page.
 
 **Application-level failure (200, ok: false):**
 ```json
@@ -189,30 +195,32 @@ To add more, edit `server/config/hosts.js`.
 
 ---
 
-## Backend Integration
+## Resolver Behaviour
 
-The backend is fully structured and production-ready. The resolution service at `server/services/resolver.js` currently returns:
+The resolver at `server/services/resolver.js` performs a **lawful, public-only** resolution:
 
-```json
-{
-  "ok": false,
-  "error": "This backend is not configured for real source resolution."
-}
-```
+1. Validates the URL against the supported host list
+2. Fetches the share page via a standard unauthenticated HTTP GET
+3. Extracts only Open Graph / `<title>` metadata that is publicly present in the HTML
+4. Returns a truthful failure if the page is not accessible or no metadata is found
 
-To integrate real resolution:
+**What it can return:**
 
-1. Edit `server/services/resolver.js`
-2. Replace the body of `performResolution(url, outputMode)` with your authorized implementation
-3. Return the success shape:
-   ```js
-   return { ok: true, title, quality, duration, outputUrl, thumbnail };
-   ```
+| Field | Source | Notes |
+|-------|--------|-------|
+| `title` | `og:title` / `<title>` tag | Empty string if not in public HTML |
+| `thumbnail` | `og:image` tag | Empty string if not in public HTML |
+| `quality` | — | Always `""` — not available without auth |
+| `duration` | — | Always `""` — not available without auth |
+| `outputUrl` | — | Always `""` — requires authentication |
 
-**Rules:**
-- Only process content the operator is authorized to handle
-- Do not implement bypass, evasion, or scraping of access controls
-- The backend must remain lawful and explicit
+**What it will never do:**
+- Use session cookies or account credentials
+- Call private/internal TeraBox API endpoints
+- Scrape runtime JavaScript state
+- Fabricate or assume field values
+
+If no publicly accessible data is found, it returns a truthful `{ ok: false, error: "..." }` response.
 
 ---
 
@@ -329,9 +337,10 @@ No build step is required. The server uses ES modules natively (Node 18+).
 |------|----------|
 | ✅ Validates input shape and required fields | ❌ Generate or fabricate media metadata |
 | ✅ Checks URL for supported TeraBox hosts | ❌ Implement bypass, evasion, or scraping |
-| ✅ Returns truthful structured failure responses | ❌ Process content without operator authorization |
+| ✅ Returns truthful structured failure responses | ❌ Process protected content without authentication |
 | ✅ Applies CORS, body size limits, and request logging | ❌ Expose stack traces in production |
-| ✅ Provides a documented integration point for real resolution | ❌ Pretend to resolve when no integration exists |
+| ✅ Fetches only public HTML and extracts Open Graph / title tags | ❌ Use session cookies or account credentials |
+| ✅ Returns empty fields rather than fabricating unavailable data | ❌ Call private or internal TeraBox API endpoints |
 
 ---
 
@@ -340,6 +349,8 @@ No build step is required. The server uses ES modules natively (Node 18+).
 There is no fake-success path anywhere in this codebase:
 
 - The frontend API client (`src/app/services/api.ts`) throws on every failure path — network errors, HTTP errors, malformed JSON, `ok: false` responses, and missing `outputUrl` fields
-- The backend resolver service (`server/services/resolver.js`) returns explicit failure until a real integration is provided
+- The backend resolver (`server/services/resolver.js`) attempts a real public HTTP fetch and extracts only openly visible metadata — it returns a truthful `ok: false` if no meaningful data is found
+- All three response fields that require authentication (`quality`, `duration`, `outputUrl`) are returned as empty strings — never fabricated
 - Preview buttons in the results table are only shown when a real `outputUrl` is present
-- The backend health pill in the nav reflects actual `/api/health` reachability"# terabox-downloader" 
+- The backend health pill in the nav reflects actual `/api/health` reachability
+

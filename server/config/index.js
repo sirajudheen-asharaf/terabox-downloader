@@ -19,9 +19,17 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? 'http://localhost:5173')
   .map((o) => o.trim())
   .filter(Boolean);
 
+/**
+ * Resolver network timeout in milliseconds.
+ * Increase if the backend sits behind a slow network path.
+ * Decrease for faster fail-fast behaviour in production.
+ */
+const RESOLVER_TIMEOUT_MS = parseInt(process.env.RESOLVER_TIMEOUT_MS ?? '15000', 10);
+
 export const config = {
   PORT,
   NODE_ENV,
   IS_PRODUCTION,
   ALLOWED_ORIGINS,
+  RESOLVER_TIMEOUT_MS,
 };

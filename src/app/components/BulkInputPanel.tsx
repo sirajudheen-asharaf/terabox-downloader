@@ -53,14 +53,14 @@ export function BulkInputPanel({
   };
 
   return (
-    <div className="rounded-2xl bg-slate-900/50 backdrop-blur-xl border border-white/10 p-6">
+    <div className="rounded-2xl bg-white shadow-sm border border-slate-200 p-6">
       <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-lg bg-violet-500/10">
-          <Database className="w-5 h-5 text-violet-400" />
+        <div className="p-2 rounded-lg bg-violet-100">
+          <Database className="w-5 h-5 text-violet-700" />
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-white">Bulk Input</h2>
-          <p className="text-sm text-slate-400">Paste links or upload a file</p>
+          <h2 className="text-lg font-semibold text-slate-900">Paste your links</h2>
+          <p className="text-sm text-slate-600">Paste links or upload a file</p>
         </div>
       </div>
 
@@ -70,8 +70,7 @@ export function BulkInputPanel({
         placeholder={
           'https://terabox.com/s/1abc...\nhttps://terabox.com/s/2def...\n\nOne link per line'
         }
-        disabled={isProcessing}
-        className="min-h-[180px] mb-3 bg-slate-950/50 border-white/10 text-white placeholder:text-slate-500 resize-none disabled:opacity-50"
+        className="min-h-[180px] mb-3 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 resize-none disabled:opacity-50"
       />
 
       {/* File upload */}
@@ -87,24 +86,19 @@ export function BulkInputPanel({
         type="button"
         disabled={isProcessing}
         onClick={() => fileInputRef.current?.click()}
-        className="w-full mb-4 flex items-center justify-center gap-2 rounded-xl border border-dashed border-white/10 py-2.5 text-sm text-slate-400 hover:border-violet-500/40 hover:text-violet-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full mb-4 flex items-center justify-center gap-2 rounded-xl border border-dashed border-slate-200 py-2.5 text-sm text-slate-600 hover:border-violet-300 hover:text-violet-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
         <FileUp className="w-4 h-4" />
         Upload .txt / .json / .html export
       </button>
 
-      {/* Truthful info banner */}
-      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 mb-4">
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
         <div className="flex gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-amber-100">
-            <p className="font-medium mb-1">Backend Required</p>
-            <p className="text-amber-200/80">
-              This frontend requires a connected{' '}
-              <code className="px-1 rounded bg-amber-500/20 text-amber-300 font-mono text-xs">
-                /api/resolve
-              </code>{' '}
-              backend. No real resolution occurs in the client.
+          <AlertTriangle className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-amber-800">
+            <p className="font-medium mb-1">Backend required</p>
+            <p className="text-amber-700/80">
+              This app sends links to a backend service. If it's unavailable, you'll see an error.
             </p>
           </div>
         </div>
@@ -138,7 +132,7 @@ export function BulkInputPanel({
           onClick={onRetryFailed}
           disabled={isProcessing}
           variant="outline"
-          className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10 disabled:opacity-40"
+          className="bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200 disabled:opacity-40"
         >
           <RotateCcw className="w-4 h-4 mr-2" />
           Retry Failed
@@ -148,7 +142,7 @@ export function BulkInputPanel({
           onClick={onClearAll}
           disabled={isProcessing}
           variant="outline"
-          className="border-red-500/50 text-red-400 hover:bg-red-500/10 disabled:opacity-40"
+          className="bg-white border-red-200 text-red-600 hover:bg-red-50 disabled:opacity-40"
         >
           <Trash2 className="w-4 h-4 mr-2" />
           Clear Queue

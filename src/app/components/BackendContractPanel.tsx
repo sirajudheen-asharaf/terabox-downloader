@@ -25,7 +25,7 @@ const FAILURE_EXAMPLE = `{
 
 function CodeBlock({ code }: { code: string }) {
   return (
-    <pre className="bg-slate-950/80 border border-white/5 rounded-xl px-4 py-3 text-xs text-slate-300 font-mono overflow-x-auto whitespace-pre leading-relaxed">
+    <pre className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-700 font-mono overflow-x-auto whitespace-pre leading-relaxed">
       {code}
     </pre>
   );
@@ -35,18 +35,18 @@ export function BackendContractPanel() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl bg-slate-900/50 backdrop-blur-xl border border-white/10 overflow-hidden">
+    <div className="rounded-2xl bg-white shadow-sm border border-slate-200 overflow-hidden">
       <button
         id="backend-contract-toggle"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition-colors"
+        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-slate-50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-slate-800">
-            <Terminal className="w-4 h-4 text-slate-400" />
+          <div className="p-2 rounded-lg bg-slate-100">
+            <Terminal className="w-4 h-4 text-slate-600" />
           </div>
           <div>
-            <p className="text-sm font-medium text-white">Backend Contract</p>
+            <p className="text-sm font-medium text-slate-900">Backend details</p>
             <p className="text-xs text-slate-500 mt-0.5">
               POST /api/resolve · <code className="text-slate-400">VITE_API_BASE_URL</code>
             </p>
@@ -60,19 +60,19 @@ export function BackendContractPanel() {
       </button>
 
       {open && (
-        <div className="px-6 pb-6 space-y-5 border-t border-white/5">
-          <p className="pt-4 text-xs text-slate-400">
+        <div className="px-6 pb-6 space-y-5 border-t border-slate-200">
+          <p className="pt-4 text-xs text-slate-600">
             This frontend calls{' '}
-            <code className="px-1 rounded bg-slate-800 text-slate-300 font-mono">
+            <code className="px-1 rounded bg-slate-100 text-slate-700 font-mono">
               POST /api/resolve
             </code>{' '}
             for every queued URL. No resolution logic runs in the browser.
             Set{' '}
-            <code className="px-1 rounded bg-slate-800 text-slate-300 font-mono">
+            <code className="px-1 rounded bg-slate-100 text-slate-700 font-mono">
               VITE_API_BASE_URL
             </code>{' '}
             in your{' '}
-            <code className="px-1 rounded bg-slate-800 text-slate-300 font-mono">.env</code>{' '}
+            <code className="px-1 rounded bg-slate-100 text-slate-700 font-mono">.env</code>{' '}
             to point at a non-origin backend; omit it to use same-origin routing.
           </p>
 
@@ -97,9 +97,9 @@ export function BackendContractPanel() {
             <CodeBlock code={FAILURE_EXAMPLE} />
           </div>
 
-          <div className="rounded-xl bg-slate-800/60 border border-white/5 px-4 py-3 text-xs text-slate-400 space-y-1">
+          <div className="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-xs text-slate-600 space-y-1">
             <p>
-              <span className="text-slate-300 font-medium">Rows will fail truthfully</span>{' '}
+              <span className="text-slate-800 font-medium">Rows will fail truthfully</span>{' '}
               if the backend is not connected. No fake data is ever generated.
             </p>
             <p className="text-slate-500">

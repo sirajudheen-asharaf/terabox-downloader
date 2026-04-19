@@ -31,25 +31,25 @@ export function SettingsPanel({
   onSaveHistoryChange,
 }: SettingsPanelProps) {
   return (
-    <div className="rounded-2xl bg-slate-900/50 backdrop-blur-xl border border-white/10 p-6">
+    <div className="rounded-2xl bg-white shadow-sm border border-slate-200 p-6">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 rounded-lg bg-violet-500/10">
-          <Settings className="w-5 h-5 text-violet-400" />
+        <div className="p-2 rounded-lg bg-violet-100">
+          <Settings className="w-5 h-5 text-violet-700" />
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-white">Settings</h2>
-          <p className="text-sm text-slate-400">Configure conversion options</p>
+          <h2 className="text-lg font-semibold text-slate-900">Settings</h2>
+          <p className="text-sm text-slate-600">Configure conversion options</p>
         </div>
       </div>
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label className="text-slate-300">Output Mode</Label>
+          <Label className="text-slate-800">Output Mode</Label>
           <Select value={outputMode} onValueChange={onOutputModeChange}>
-            <SelectTrigger className="bg-slate-950/50 border-white/10 text-white">
+            <SelectTrigger className="bg-white border-slate-200 text-slate-900">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-white/10">
+            <SelectContent className="bg-white border-slate-200">
               <SelectItem value="download">Download</SelectItem>
               <SelectItem value="stream">Stream</SelectItem>
             </SelectContent>
@@ -57,12 +57,12 @@ export function SettingsPanel({
         </div>
 
         <div className="space-y-2">
-          <Label className="text-slate-300">Worker Slots</Label>
+          <Label className="text-slate-800">Worker Slots</Label>
           <Select value={workerSlots} onValueChange={onWorkerSlotsChange}>
-            <SelectTrigger className="bg-slate-950/50 border-white/10 text-white">
+            <SelectTrigger className="bg-white border-slate-200 text-slate-900">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-white/10">
+            <SelectContent className="bg-white border-slate-200">
               <SelectItem value="1">1 Worker</SelectItem>
               <SelectItem value="2">2 Workers</SelectItem>
               <SelectItem value="3">3 Workers</SelectItem>
@@ -71,10 +71,10 @@ export function SettingsPanel({
           </Select>
         </div>
 
-        <div className="pt-4 border-t border-white/10 space-y-4">
+        <div className="pt-4 border-t border-slate-200 space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-slate-300">Auto Start</Label>
+              <Label className="text-slate-800">Auto Start</Label>
               <p className="text-sm text-slate-500">Start conversion automatically</p>
             </div>
             <Switch
@@ -85,7 +85,7 @@ export function SettingsPanel({
 
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label className="text-slate-300">Save History</Label>
+              <Label className="text-slate-800">Save History</Label>
               <p className="text-sm text-slate-500">Keep conversion records</p>
             </div>
             <Switch

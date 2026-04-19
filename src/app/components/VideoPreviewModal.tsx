@@ -31,13 +31,13 @@ export function VideoPreviewModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl bg-slate-900 border-white/10 text-white">
+      <DialogContent className="max-w-4xl bg-white border-slate-200 text-slate-900">
         <DialogHeader>
           <DialogTitle className="text-xl truncate pr-8">{videoData.title}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
-          <div className="aspect-video bg-slate-950 rounded-xl overflow-hidden border border-white/10">
+          <div className="aspect-video bg-black rounded-xl overflow-hidden border border-slate-200">
             {videoData.url ? (
               <video controls className="w-full h-full" src={videoData.url}>
                 Your browser does not support the video tag.
@@ -50,22 +50,22 @@ export function VideoPreviewModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-950/50 border border-white/10">
-              <div className="p-2 rounded-lg bg-violet-500/10">
-                <Clock className="w-5 h-5 text-violet-400" />
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="p-2 rounded-lg bg-violet-100">
+                <Clock className="w-5 h-5 text-violet-700" />
               </div>
               <div>
-                <p className="text-sm text-slate-400">Duration</p>
-                <p className="font-medium">{videoData.duration}</p>
+                <p className="text-sm text-slate-500">Duration</p>
+                <p className="font-medium text-slate-900">{videoData.duration}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-950/50 border border-white/10">
-              <div className="p-2 rounded-lg bg-cyan-500/10">
-                <Video className="w-5 h-5 text-cyan-400" />
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="p-2 rounded-lg bg-cyan-100">
+                <Video className="w-5 h-5 text-cyan-700" />
               </div>
               <div>
-                <p className="text-sm text-slate-400">Quality</p>
-                <p className="font-medium">{videoData.quality}</p>
+                <p className="text-sm text-slate-500">Quality</p>
+                <p className="font-medium text-slate-900">{videoData.quality}</p>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ export function VideoPreviewModal({
             <Button
               id="modal-copy-btn"
               variant="outline"
-              className="flex-1 border-white/10 text-white hover:bg-white/10"
+              className="flex-1 bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
               onClick={() => onCopy?.(videoData.url)}
               disabled={!videoData.url}
             >

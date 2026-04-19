@@ -42,11 +42,11 @@ export function ResultsTable({
   }, [results, search]);
 
   return (
-    <div className="rounded-2xl bg-slate-900/50 backdrop-blur-xl border border-white/10 overflow-hidden">
+    <div className="rounded-2xl bg-white shadow-sm border border-slate-200 overflow-hidden">
       {/* Header */}
-      <div className="p-6 border-b border-white/10 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="flex-1">
-          <h2 className="text-lg font-semibold text-white">Resolution Results</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Results</h2>
           <p className="text-sm text-slate-400 mt-0.5">
             {results.length} resolved · {filtered.length} shown
           </p>
@@ -60,12 +60,12 @@ export function ResultsTable({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search results…"
-            className="w-full bg-slate-950/50 border border-white/10 rounded-xl pl-9 pr-8 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-violet-500/50 transition-colors"
+            className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-8 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-violet-300 transition-colors"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
             >
               <X className="w-4 h-4" />
             </button>
@@ -79,7 +79,7 @@ export function ResultsTable({
             size="sm"
             variant="outline"
             onClick={() => exportCsv(results)}
-            className="border-white/10 text-slate-300 hover:bg-white/10 shrink-0"
+            className="border-slate-200 text-slate-700 hover:bg-slate-50 shrink-0"
           >
             <FileDown className="w-4 h-4 mr-2" />
             Export CSV
@@ -91,13 +91,13 @@ export function ResultsTable({
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="border-white/10 hover:bg-transparent">
-              <TableHead className="text-slate-400">Source</TableHead>
-              <TableHead className="text-slate-400">Status</TableHead>
-              <TableHead className="text-slate-400">Title</TableHead>
-              <TableHead className="text-slate-400">Quality</TableHead>
-              <TableHead className="text-slate-400">Duration</TableHead>
-              <TableHead className="text-slate-400 text-right">Actions</TableHead>
+            <TableRow className="border-slate-200 hover:bg-transparent">
+              <TableHead className="text-slate-500">Source</TableHead>
+              <TableHead className="text-slate-500">Status</TableHead>
+              <TableHead className="text-slate-500">Title</TableHead>
+              <TableHead className="text-slate-500">Quality</TableHead>
+              <TableHead className="text-slate-500">Duration</TableHead>
+              <TableHead className="text-slate-500 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -106,10 +106,7 @@ export function ResultsTable({
                 <TableCell colSpan={6} className="text-center py-14 text-slate-500">
                   {results.length === 0 ? (
                     <div className="space-y-2">
-                      <p>No results yet.</p>
-                      <p className="text-sm text-slate-600">
-                        Add links, then click <span className="text-slate-400">Start Conversion</span> — results will appear here once the backend resolves them.
-                      </p>
+                      <p>Nothing here yet. Paste links and start processing.</p>
                     </div>
                   ) : (
                     <p>No results match "{search}".</p>
@@ -118,27 +115,27 @@ export function ResultsTable({
               </TableRow>
             ) : (
               filtered.map((result) => (
-                <TableRow key={result.id} className="border-white/5 hover:bg-white/5">
+                <TableRow key={result.id} className="border-slate-100 hover:bg-slate-50">
                   <TableCell
-                    className="font-mono text-xs text-slate-400 max-w-[180px] truncate"
+                    className="font-mono text-xs text-slate-500 max-w-[180px] truncate"
                     title={result.sourceUrl}
                   >
                     {result.sourceUrl}
                   </TableCell>
                   <TableCell>
-                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                    <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200">
                       <CheckCircle className="w-3 h-3 mr-1" />
                       Resolved
                     </Badge>
                   </TableCell>
                   <TableCell
-                    className="text-white max-w-[200px] truncate"
+                    className="text-slate-900 max-w-[200px] truncate"
                     title={result.title}
                   >
                     {result.title}
                   </TableCell>
-                  <TableCell className="text-slate-300">{result.quality}</TableCell>
-                  <TableCell className="text-slate-300">{result.duration}</TableCell>
+                  <TableCell className="text-slate-600">{result.quality}</TableCell>
+                  <TableCell className="text-slate-600">{result.duration}</TableCell>
                   <TableCell>
                     <div className="flex items-center justify-end gap-1">
                       {/* Preview — only when outputUrl present */}
@@ -148,7 +145,7 @@ export function ResultsTable({
                           variant="ghost"
                           id={`preview-${result.id}`}
                           onClick={() => onPreview(result)}
-                          className="h-8 w-8 p-0 text-slate-400 hover:text-white hover:bg-white/10"
+                          className="h-8 w-8 p-0 text-slate-500 hover:text-slate-900 hover:bg-slate-200"
                           title="Preview video"
                         >
                           <Eye className="w-4 h-4" />
@@ -159,7 +156,7 @@ export function ResultsTable({
                         variant="ghost"
                         id={`copy-${result.id}`}
                         onClick={() => onCopy(result.outputUrl)}
-                        className="h-8 w-8 p-0 text-slate-400 hover:text-white hover:bg-white/10"
+                        className="h-8 w-8 p-0 text-slate-500 hover:text-slate-900 hover:bg-slate-200"
                         title="Copy direct link"
                       >
                         <Copy className="w-4 h-4" />
@@ -169,7 +166,7 @@ export function ResultsTable({
                         variant="ghost"
                         id={`download-${result.id}`}
                         onClick={() => onDownload(result.outputUrl, result.title)}
-                        className="h-8 w-8 p-0 text-slate-400 hover:text-white hover:bg-white/10"
+                        className="h-8 w-8 p-0 text-slate-500 hover:text-slate-900 hover:bg-slate-200"
                         title="Download"
                       >
                         <Download className="w-4 h-4" />
@@ -179,7 +176,7 @@ export function ResultsTable({
                         variant="ghost"
                         id={`delete-${result.id}`}
                         onClick={() => onDelete(result.id)}
-                        className="h-8 w-8 p-0 text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                        className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
                         title="Remove record"
                       >
                         <Trash2 className="w-4 h-4" />
